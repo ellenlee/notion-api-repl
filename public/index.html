@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Henry Wang</title>
+        <link rel="stylesheet" href="styles.css" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="config.js"></script>
+        <!-- 引用配置文件 -->
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <nav>
+                    <div class="logo">Henry Wang</div>
+                    <ul>
+                        <li><a href="#services">我的服務</a></li>
+                        <li><a href="#insight">我的觀點</a></li>
+                        <li><a href="#contact">聯繫我</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-inner">
+                    <div class="hero-content">
+                        <h1>Henry Wang</h1>
+                        <p>專業的職涯規劃導師，助你看見前路並立刻採取行動</p>
+                        <div class="social-icons">
+                            <a href="#"
+                                ><img
+                                    src="https://placehold.co/30x30"
+                                    alt="Facebook"
+                            /></a>
+                            <a href="#"
+                                ><img
+                                    src="https://placehold.co/30x30"
+                                    alt="Instagram"
+                            /></a>
+                            <a href="#"
+                                ><img
+                                    src="https://placehold.co/30x30"
+                                    alt="Thread"
+                            /></a>
+                        </div>
+                        <p>henry.wang@contact.com</p>
+                        <a href="#contact" class="btn">與我聯絡</a>
+                    </div>
+                    <div class="hero-image">
+                        <img
+                            src="https://placehold.co/600x400"
+                            alt="Henry Wang"
+                        />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="services" class="section">
+            <div class="container">
+                <h2>我的服務</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <img
+                            src="https://placehold.co/600x400"
+                            alt="Service 1"
+                        />
+                        <div class="card-content">
+                            <h3>一對一職涯規劃諮詢</h3>
+                            <p>
+                                提供個性化的職業規劃建議和指導，幫助你明確職業方向。
+                            </p>
+                            <a href="#" class="btn">了解更多</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://placehold.co/600x400"
+                            alt="Service 2"
+                        />
+                        <div class="card-content">
+                            <h3>履歷萃取</h3>
+                            <p>
+                                幫助你打造一份出色的履歷，突出你的競爭力和資質特點。
+                            </p>
+                            <a href="#" class="btn">了解更多</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://placehold.co/600x400"
+                            alt="Service 3"
+                        />
+                        <div class="card-content">
+                            <h3>大學科系選擇指導</h3>
+                            <p>
+                                根據個人興趣和職業前景，提供科學的科系選擇建議。
+                            </p>
+                            <a href="#" class="btn">了解更多</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://placehold.co/600x400"
+                            alt="Service 4"
+                        />
+                        <div class="card-content">
+                            <h3>生涯規劃工作坊</h3>
+                            <p>
+                                通過動態工作坊，幫助你制定清晰的職業發展計劃。
+                            </p>
+                            <a href="#" class="btn">了解更多</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="insight" class="section">
+            <div class="container">
+                <h2>我的觀點</h2>
+                <div class="card-grid" id="article-cards">
+                    <!-- 文章卡片將由 JavaScript 動態生成 -->
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="contact-inner">
+                    <div class="contact-form">
+                        <h2>聯繫我</h2>
+                        <form>
+                            <label for="name">姓名</label>
+                            <input type="text" id="name" name="name" required />
+
+                            <label for="email">Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                required
+                            />
+
+                            <label for="message">你的需求</label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                required
+                            ></textarea>
+
+                            <button type="submit" class="btn">提交</button>
+                        </form>
+                    </div>
+                    <div class="contact-image">
+                        <img src="https://placehold.co/600x400" alt="Contact" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container">
+                <p>© 2024 Henry Wang 職涯規劃導師. All rights reserved.</p>
+            </div>
+        </footer>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                console.log("Fetching articles from Notion API...");
+                console.log("Base URL from config:", config.apiBaseUrl);
+                const requestUrl = `${config.apiBaseUrl}/notion-articles`;
+                console.log("Request URL:", requestUrl);
+
+                axios
+                    .get(requestUrl)
+                    .then((response) => {
+                        console.log("Articles fetched:", response.data);
+                        const articleCardsContainer =
+                            document.getElementById("article-cards");
+                        response.data.forEach((article) => {
+                            const card = document.createElement("div");
+                            card.className = "card";
+                            card.innerHTML = `
+                            <img src="https://placehold.co/600x400" alt="${article.title}">
+                            <div class="card-content">
+                                <h3>${article.title}</h3>
+                                <p>${article.description}</p>
+                                <a href="${article.url}" class="btn">閱讀更多</a>
+                            </div>
+                        `;
+                            articleCardsContainer.appendChild(card);
+                        });
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching articles:", error);
+                    });
+            });
+        </script>
+    </body>
+</html>
